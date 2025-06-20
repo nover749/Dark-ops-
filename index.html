@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dark Ops</title>
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Share Tech Mono', monospace;
+      background-color: #000;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .login-screen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background-color: #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .login-screen input {
+      background-color: #111;
+      color: #0f0;
+      border: 1px solid #0f0;
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+      width: 200px;
+      text-align: center;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .top-bar {
+      height: 60px;
+      background-color: #000;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      border-bottom: 1px solid #333;
+    }
+
+    .menu-icon {
+      font-size: 28px;
+      color: #fff;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .side-menu {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background-color: #111;
+      padding-top: 80px;
+      transition: left 0.3s ease;
+      z-index: 1000;
+      border-right: 1px solid #333;
+    }
+
+    .side-menu.active {
+      left: 0;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      padding: 15px 20px;
+      color: #fff;
+      text-decoration: none;
+      border-bottom: 1px solid #333;
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+
+    .menu-item:hover {
+      background-color: #222;
+    }
+
+    .menu-item img {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      filter: grayscale(100%) brightness(200%);
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.05);
+      z-index: 900;
+    }
+
+    .overlay.active {
+      display: block;
+    }
+
+    .content {
+      padding: 40px 20px;
+      overflow-y: auto;
+      height: calc(100vh - 60px);
+    }
+
+    .page-section {
+      display: none;
+    }
+
+    .page-section.active {
+      display: block;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #bbb;
+      line-height: 1.5;
+    }
+
+    /* Cmd Commands styling */
+    .cmd-section {
+      background-color: #111;
+      border: 1px solid #0f0;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 4px;
+      color: #0f0;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    .cmd-section h2 {
+      color: #0f0;
+      margin-top: 0;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #0f0;
+      padding-bottom: 5px;
+    }
+
+    .cmd-section pre {
+      background-color: #000;
+      border: 1px solid #0f0;
+      padding: 10px;
+      overflow-x: auto;
+      color: #0f0;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 14px;
+      margin-bottom: 15px;
+      white-space: pre-wrap;
+    }
+
+    .cmd-warning {
+      background-color: #220000;
+      border: 1px solid #f00;
+      padding: 10px;
+      margin-bottom: 20px;
+      color: #f00;
+      font-weight: bold;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    .cmd-note {
+      background-color: #002200;
+      border: 1px solid #0f0;
+      padding: 10px;
+      margin-bottom: 20px;
+      color: #0f0;
+      font-family: 'Share Tech Mono', monospace;
+      font-style: italic;
+    }
+
+    /* Pirated Games styling */
+    .pirated-games-section {
+      background-color: #111;
+      border: 1px solid #f00;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 4px;
+      color: #f00;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    .pirated-games-section a {
+      color: #f00;
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- 🔐 LOGIN SCREEN -->
+  <div class="login-screen" id="loginScreen">
+    <h2>ENTER ACCESS CODE</h2>
+    <input type="password" id="passwordInput" placeholder="••••" onkeydown="if(event.key === 'Enter') checkPassword()" />
+  </div>
+
+  <!-- 🔼 TOP BAR -->
+  <div class="top-bar">
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
+  </div>
+
+  <!-- ⬅️ SIDE MENU -->
+<div class="side-menu" id="sideMenu">
+  <div class="menu-item" onclick="showPage('home')">
+    <img src="https://img.icons8.com/ios-filled/50/ffffff/home.png" alt="Home">Home
+  </div>
+  <div class="menu-item" onclick="showPage('manuals')">
+    <img src="https://img.icons8.com/ios-filled/50/ffffff/document.png" alt="Manuals">Manuals
+  </div>
+  <div class="menu-item" onclick="showPage('hacks')">
+    <img src="https://img.icons8.com/ios-filled/50/ffffff/hacker.png" alt="Hacks">Hacks
+  </div>
+  <div class="menu-item" onclick="showPage('iosRecovery')">
+    <img src="https://img.icons8.com/ios-filled/50/ffffff/ios-logo.png" alt="iOS Recovery">iOS Recovery
+  </div>
+<!-- CMD Commands -->
+<div class="menu-item" onclick="showPage('cmdCommands')">
+  <img src="https://img.icons8.com/fluency-systems-filled/48/ffffff/console.png" alt="CMD Commands">CMD Commands
+</div>
+
+<!-- Pirated Games -->
+<div class="menu-item" onclick="showPage('piratedGames')">
+  <img src="https://img.icons8.com/fluency-systems-filled/48/ffffff/controller.png" alt="Pirated Games">Pirated Games
+</div>
+  </div>
+</div>
+
+  <!-- ⚫ OVERLAY -->
+  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+  <!-- 🖤 MAIN CONTENT SECTIONS -->
+  <div class="content">
+    <div id="home" class="page-section active">
+      <h1>Home</h1>
+      <p>Welcome to the dark ops control interface. Use the menu to navigate between modules.</p>
+    </div>
+    <div id="manuals" class="page-section">
+      <h1>Manuals</h1>
+      <p>List of operator guides, encryption standards, and terminal commands will appear here.</p>
+    </div>
+    <div id="hacks" class="page-section">
+      <h1>Hacks</h1>
+      <p>Exploit catalog, toolkits, and vulnerabilities database are under construction.</p>
+    </div>
+    <div id="iosRecovery" class="page-section">
+      <h1>iOS Recovery</h1>
+      <p>Use <a href="https://checkra.in" target="_blank" style="color:#0f0; text-decoration: underline;">checkra1n</a> to recover or jailbreak your iOS device.</p>
+    </div>
+    <div id="cmdCommands" class="page-section">
+      <h1>CMD Commands</h1>
+      <div class="cmd-section">
+        <h2>Freeze any computer:</h2>
+        <p>Open notepad and type:</p>
+        <pre>@echo off
+:loop
+start cmd
+goto loop
+        </pre>
+        <p>Then save it as a <code>.bat</code> file.</p>
+        <div class="cmd-warning">Warning: this freezes the computer</div>
+        <div class="cmd-note">-To remove this virus, unplug and plug the video cable</div>
+
+        <h2>CMD Windows Killer:</h2>
+        <p>Open cmd then type:</p>
+        <pre>taskkill /f /im "explorer.exe"</pre>
+        <p>To undo:</p>
+        <pre>start "explorer.exe"</pre>
+        <div class="cmd-warning">Warning: this disables the operating system, which may cause harm to the computer</div>
+      </div>
+    </div>
+
+    <div id="piratedGames" class="page-section">
+      <h1>Pirated Games</h1>
+      <div class="pirated-games-section">
+        <p>Download pirated games here:</p>
+        <ul>
+          <li><a href="https://drive.google.com/file/d/1PDAuvx9Vk4gVaHEBdgw2xY17YHvtilOV/view?usp=drivesdk" target="_blank" rel="noopener noreferrer">Pirated Games Archive (Google Drive)</a></li>
+        </ul>
+        <p><em>Use at your own risk.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const sideMenu = document.getElementById('sideMenu');
+    const overlay = document.getElementById('overlay');
+    const loginScreen = document.getElementById('loginScreen');
+    const passwordInput = document.getElementById('passwordInput');
+
+    function toggleMenu() {
+      sideMenu.classList.toggle('active');
+      overlay.classList.toggle('active');
+    }
+
+    function showPage(pageId) {
+      // Hide all pages
+      document.querySelectorAll('.page-section').forEach(section => {
+        section.classList.remove('active');
+      });
+      // Show selected page
+      const page = document.getElementById(pageId);
+      if (page) {
+        page.classList.add('active');
+      }
+      // Close menu if open
+      if (sideMenu.classList.contains('active')) {
+        toggleMenu();
+      }
+    }
+
+    function checkPassword() {
+      const password = passwordInput.value.trim();
+      // Simple password check, change 'darkops' to your desired password
+      if (password.toLowerCase() === 'darkops') {
+        loginScreen.classList.add('hidden');
+      } else {
+        alert('Incorrect access code.');
+        passwordInput.value = '';
+      }
+    }
+  </script>
+
+</body>
+</html>
