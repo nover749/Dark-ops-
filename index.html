@@ -125,7 +125,7 @@
     h1 { font-size: 24px; margin-bottom: 10px; }
     p { color: #bbb; line-height: 1.5; }
 
-    /* Scrollable horizontal sponsors container */
+    /* Horizontal container on Home for tools */
     .sponsor-container {
       display: flex;
       overflow-x: auto;
@@ -159,7 +159,7 @@
       color: #aaa;
     }
 
-    /* Other existing styles */
+    /* Tools section vertical scroll container */
     .cmd-section {
       background-color: #111;
       border: 1px solid #0f0;
@@ -167,6 +167,8 @@
       margin-top: 20px;
       border-radius: 4px;
       font-family: 'Share Tech Mono', monospace;
+      max-height: 400px;
+      overflow-y: auto;
     }
     .cmd-section a {
       color: #0f0;
@@ -235,71 +237,65 @@
       <p>Welcome to the dark ops control interface. Use the menu to navigate between modules.</p>
 
       <div class="sponsor-container" id="sponsorContainer">
-        <div class="sponsor-box" onclick="alert('Warning: This Bitcoin doubling scheme is a scam! Stay safe.')">
-          <h3>Double Bitcoin Now</h3>
-          <p>Send 0.1 BTC, get 0.2 BTC back. Totally legit!</p>
+        <div class="sponsor-box" onclick="window.open('https://winra1n.com/', '_blank')">
+          <h3>Winra1n</h3>
+          <p>Windows jailbreak tool for checkra1n.</p>
         </div>
-        <div class="sponsor-box" onclick="alert('Alert: Fake work-from-home job offer. Avoid phishing attempts!')">
-          <h3>Work From Home</h3>
-          <p>Earn $5000 weekly. No skills required.</p>
+        <div class="sponsor-box" onclick="window.open('https://altstore.io/', '_blank')">
+          <h3>AltStore</h3>
+          <p>Install apps on iOS without jailbreaking.</p>
         </div>
-        <div class="sponsor-box" onclick="alert('Caution: Free Fortnite skins generator is a trap.')">
-          <h3>Free Fortnite Skins</h3>
-          <p>Unlock every skin without paying.</p>
+        <div class="sponsor-box" onclick="window.open('https://unc0ver.dev/', '_blank')">
+          <h3>Unc0ver</h3>
+          <p>Popular jailbreak tool for iOS devices.</p>
         </div>
-        <div class="sponsor-box" onclick="alert('Phishing alert! This hack tool will steal your info.')">
-          <h3>Facebook Hack Tool</h3>
-          <p>Instantly crack any account.</p>
+        <div class="sponsor-box" onclick="window.open('https://checkra.in/', '_blank')">
+          <h3>checkra1n</h3>
+          <p>Powerful jailbreak for iOS devices.</p>
         </div>
-        <div class="sponsor-box" onclick="alert('System alert: Your PC is infected! Fake virus scan running.')">
-          <h3>Virus Scan</h3>
-          <p>Remove all malware now!</p>
+        <div class="sponsor-box" onclick="window.open('https://tweakboxapp.com/', '_blank')">
+          <h3>TweakBox</h3>
+          <p>Third-party app installer for iOS.</p>
         </div>
-        <div class="sponsor-box" onclick="alert('Government data hack is a fake scam.')">
-          <h3>Gov Database Access</h3>
-          <p>Admin access granted instantly.</p>
+        <div class="sponsor-box" onclick="window.open('https://cydia.saurik.com/', '_blank')">
+          <h3>Cydia</h3>
+          <p>Classic jailbreak app store.</p>
         </div>
       </div>
     </div>
 
     <div id="commercial" class="page-section">
       <h1>Commercial</h1>
-      <p>Sketchy sponsored content. Click responsibly 😈</p>
+      <p>Windows and jailbreak tools collection.</p>
 
       <div class="cmd-section">
-        <h2 style="color: #ff0;">🔥 Double Your Crypto</h2>
-        <p>Get 2x your bitcoin instantly. 100% legit.</p>
-        <a href="#" onclick="alert('Fake scam: Bitcoin doubler detected!'); return false;">bit-doubler.scam</a>
+        <h2><a href="https://winra1n.com/" target="_blank" style="color:#0f0; text-decoration:none;">Winra1n</a></h2>
+        <p>Windows jailbreak loader for checkra1n.</p>
       </div>
 
       <div class="cmd-section">
-        <h2 style="color: #0ff;">💸 Make $10,000 a Day!</h2>
-        <p>No experience needed. Just click!</p>
-        <a href="#" onclick="alert('🔒 SYSTEM BREACH DETECTED: Wallet linked.'); return false;">click-profit.xyz</a>
+        <h2><a href="https://altstore.io/" target="_blank" style="color:#0f0; text-decoration:none;">AltStore</a></h2>
+        <p>Install apps on iOS devices without jailbreak.</p>
       </div>
 
       <div class="cmd-section">
-        <h2 style="color: #f0f;">👾 Free Fortnite Skins Generator</h2>
-        <p>We swear it works! (No human verification)</p>
-        <a href="#" onclick="alert('Glitching website detected!'); return false;">free-skins.online</a>
+        <h2><a href="https://unc0ver.dev/" target="_blank" style="color:#0f0; text-decoration:none;">Unc0ver</a></h2>
+        <p>Popular iOS jailbreak tool.</p>
       </div>
 
       <div class="cmd-section">
-        <h2 style="color: #0f0;">💥 Hack Facebook in 1 Minute</h2>
-        <p>Use AI to crack any account password instantly.</p>
-        <a href="#" onclick="alert('💀 INITIATING HACKER PROTOCOL... ACCESS GRANTED.'); return false;">fbhax.ai</a>
+        <h2><a href="https://checkra.in/" target="_blank" style="color:#0f0; text-decoration:none;">checkra1n</a></h2>
+        <p>Powerful jailbreak for iOS devices.</p>
       </div>
 
       <div class="cmd-section">
-        <h2 style="color: #f00;">⚠️ Warning: Your PC Is Infected</h2>
-        <p>Scan and clean now. Before it’s too late.</p>
-        <a href="#" onclick="alert('Fake virus scan initiated. Please do not trust this.'); return false;">secure-patch.win</a>
+        <h2><a href="https://tweakboxapp.com/" target="_blank" style="color:#0f0; text-decoration:none;">TweakBox</a></h2>
+        <p>Third-party app installer for iOS.</p>
       </div>
 
       <div class="cmd-section">
-        <h2 style="color: #0ff;">💻 Government Database Access</h2>
-        <p>Instant admin access to confidential data.</p>
-        <a href="#" onclick="alert('Access denied. Authorization required.'); return false;">gov-access.top</a>
+        <h2><a href="https://cydia.saurik.com/" target="_blank" style="color:#0f0; text-decoration:none;">Cydia</a></h2>
+        <p>Classic jailbreak app store.</p>
       </div>
     </div>
 
