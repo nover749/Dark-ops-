@@ -4,15 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dark Ops</title>
-
-  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
-
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: 'Share Tech Mono', monospace;
@@ -20,7 +14,6 @@
       color: #fff;
       overflow: hidden;
     }
-
     .login-screen {
       position: fixed;
       top: 0; left: 0;
@@ -32,7 +25,6 @@
       align-items: center;
       z-index: 2000;
     }
-
     .login-screen input {
       background-color: #111;
       color: #0f0;
@@ -43,11 +35,7 @@
       width: 200px;
       text-align: center;
     }
-
-    .hidden {
-      display: none !important;
-    }
-
+    .hidden { display: none !important; }
     .top-bar {
       height: 60px;
       background-color: #000;
@@ -56,14 +44,12 @@
       padding: 0 20px;
       border-bottom: 1px solid #333;
     }
-
     .menu-icon {
       font-size: 28px;
       color: #fff;
       cursor: pointer;
       user-select: none;
     }
-
     .side-menu {
       position: fixed;
       top: 0;
@@ -76,11 +62,7 @@
       z-index: 1000;
       border-right: 1px solid #333;
     }
-
-    .side-menu.active {
-      left: 0;
-    }
-
+    .side-menu.active { left: 0; }
     .menu-item {
       display: flex;
       align-items: center;
@@ -91,18 +73,13 @@
       transition: background 0.2s;
       cursor: pointer;
     }
-
-    .menu-item:hover {
-      background-color: #222;
-    }
-
+    .menu-item:hover { background-color: #222; }
     .menu-item img {
       width: 20px;
       height: 20px;
       margin-right: 10px;
       filter: grayscale(100%) brightness(200%);
     }
-
     .overlay {
       display: none;
       position: fixed;
@@ -113,87 +90,64 @@
       background-color: rgba(255, 255, 255, 0.05);
       z-index: 900;
     }
-
-    .overlay.active {
-      display: block;
-    }
-
+    .overlay.active { display: block; }
     .content {
       padding: 40px 20px;
       overflow-y: auto;
       height: calc(100vh - 60px);
     }
+    .page-section { display: none; }
+    .page-section.active { display: block; }
+    h1 { font-size: 24px; margin-bottom: 10px; }
+    p { color: #bbb; line-height: 1.5; }
 
-    .page-section {
-      display: none;
+    /* Scrollable horizontal sponsors container */
+    .sponsor-container {
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      padding: 20px 0;
+      scroll-behavior: smooth;
+    }
+    .sponsor-box {
+      min-width: 180px;
+      background-color: #111;
+      border: 1px solid #333;
+      padding: 15px;
+      border-radius: 6px;
+      text-align: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      user-select: none;
+      flex-shrink: 0;
+    }
+    .sponsor-box:hover {
+      background-color: #222;
+    }
+    .sponsor-box h3 {
+      margin: 0 0 10px 0;
+      color: #0f0;
+      font-size: 18px;
+    }
+    .sponsor-box p {
+      font-size: 13px;
+      color: #aaa;
     }
 
-    .page-section.active {
-      display: block;
-    }
-
-    h1 {
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
-
-    p {
-      color: #bbb;
-      line-height: 1.5;
-    }
-
-    /* Cmd Commands styling */
+    /* Other existing styles */
     .cmd-section {
       background-color: #111;
       border: 1px solid #0f0;
       padding: 20px;
       margin-top: 20px;
       border-radius: 4px;
-      color: #0f0;
       font-family: 'Share Tech Mono', monospace;
     }
-
-    .cmd-section h2 {
+    .cmd-section a {
       color: #0f0;
-      margin-top: 0;
-      margin-bottom: 10px;
-      border-bottom: 1px solid #0f0;
-      padding-bottom: 5px;
+      text-decoration: underline;
+      cursor: pointer;
     }
-
-    .cmd-section pre {
-      background-color: #000;
-      border: 1px solid #0f0;
-      padding: 10px;
-      overflow-x: auto;
-      color: #0f0;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 14px;
-      margin-bottom: 15px;
-      white-space: pre-wrap;
-    }
-
-    .cmd-warning {
-      background-color: #220000;
-      border: 1px solid #f00;
-      padding: 10px;
-      margin-bottom: 20px;
-      color: #f00;
-      font-weight: bold;
-      font-family: 'Share Tech Mono', monospace;
-    }
-
-    .cmd-note {
-      background-color: #002200;
-      border: 1px solid #0f0;
-      padding: 10px;
-      margin-bottom: 20px;
-      color: #0f0;
-      font-family: 'Share Tech Mono', monospace;
-      font-style: italic;
-    }
-
-    /* Pirated Games styling */
     .pirated-games-section {
       background-color: #111;
       border: 1px solid #f00;
@@ -203,74 +157,144 @@
       color: #f00;
       font-family: 'Share Tech Mono', monospace;
     }
-
     .pirated-games-section a {
       color: #f00;
       text-decoration: underline;
+      cursor: pointer;
     }
-
   </style>
 </head>
 <body>
 
-  <!-- 🔐 LOGIN SCREEN -->
+  <!-- LOGIN SCREEN -->
   <div class="login-screen" id="loginScreen">
     <h2>ENTER ACCESS CODE</h2>
     <input type="password" id="passwordInput" placeholder="••••" onkeydown="if(event.key === 'Enter') checkPassword()" />
   </div>
 
-  <!-- 🔼 TOP BAR -->
+  <!-- TOP BAR -->
   <div class="top-bar">
     <div class="menu-icon" onclick="toggleMenu()">☰</div>
   </div>
 
-  <!-- ⬅️ SIDE MENU -->
-<div class="side-menu" id="sideMenu">
-  <div class="menu-item" onclick="showPage('home')">
-    <img src="https://img.icons8.com/ios-filled/50/ffffff/home.png" alt="Home">Home
+  <!-- SIDE MENU -->
+  <div class="side-menu" id="sideMenu">
+    <div class="menu-item" onclick="showPage('home')">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/home.png" alt="Home">Home
+    </div>
+    <div class="menu-item" onclick="showPage('commercial')">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/commercial.png" alt="Commercial">Commercial
+    </div>
+    <div class="menu-item" onclick="showPage('hacks')">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/hacker.png" alt="Hacks">Hacks
+    </div>
+    <div class="menu-item" onclick="showPage('iosRecovery')">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/ios-logo.png" alt="iOS Recovery">iOS Recovery
+    </div>
+    <div class="menu-item" onclick="showPage('cmdCommands')">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/command-prompt.png" alt="CMD Commands">CMD Commands
+    </div>
+    <div class="menu-item" onclick="showPage('piratedGames')">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/game-controller.png" alt="Pirated Games">Pirated Games
+    </div>
   </div>
-  <div class="menu-item" onclick="showPage('manuals')">
-    <img src="https://img.icons8.com/ios-filled/50/ffffff/document.png" alt="Manuals">Manuals
-  </div>
-  <div class="menu-item" onclick="showPage('hacks')">
-    <img src="https://img.icons8.com/ios-filled/50/ffffff/hacker.png" alt="Hacks">Hacks
-  </div>
-  <div class="menu-item" onclick="showPage('iosRecovery')">
-    <img src="https://img.icons8.com/ios-filled/50/ffffff/ios-logo.png" alt="iOS Recovery">iOS Recovery
-  </div>
-<!-- CMD Commands -->
-<div class="menu-item" onclick="showPage('cmdCommands')">
-  <img src="https://img.icons8.com/fluency-systems-filled/48/ffffff/console.png" alt="CMD Commands">CMD Commands
-</div>
 
-<!-- Pirated Games -->
-<div class="menu-item" onclick="showPage('piratedGames')">
-  <img src="https://img.icons8.com/fluency-systems-filled/48/ffffff/controller.png" alt="Pirated Games">Pirated Games
-</div>
-  </div>
-</div>
-
-  <!-- ⚫ OVERLAY -->
+  <!-- OVERLAY -->
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-  <!-- 🖤 MAIN CONTENT SECTIONS -->
+  <!-- MAIN CONTENT -->
   <div class="content">
+
     <div id="home" class="page-section active">
       <h1>Home</h1>
       <p>Welcome to the dark ops control interface. Use the menu to navigate between modules.</p>
+
+      <div class="sponsor-container" id="sponsorContainer">
+        <div class="sponsor-box" onclick="alert('Warning: This Bitcoin doubling scheme is a scam! Stay safe.')">
+          <h3>Double Bitcoin Now</h3>
+          <p>Send 0.1 BTC, get 0.2 BTC back. Totally legit!</p>
+        </div>
+        <div class="sponsor-box" onclick="alert('Alert: Fake work-from-home job offer. Avoid phishing attempts!')">
+          <h3>Work From Home</h3>
+          <p>Earn $5000 weekly. No skills required.</p>
+        </div>
+        <div class="sponsor-box" onclick="alert('Caution: Free Fortnite skins generator is a trap.')">
+          <h3>Free Fortnite Skins</h3>
+          <p>Unlock every skin without paying.</p>
+        </div>
+        <div class="sponsor-box" onclick="alert('Phishing alert! This hack tool will steal your info.')">
+          <h3>Facebook Hack Tool</h3>
+          <p>Instantly crack any account.</p>
+        </div>
+        <div class="sponsor-box" onclick="alert('System alert: Your PC is infected! Fake virus scan running.')">
+          <h3>Virus Scan</h3>
+          <p>Remove all malware now!</p>
+        </div>
+        <div class="sponsor-box" onclick="alert('Government data hack is a fake scam.')">
+          <h3>Gov Database Access</h3>
+          <p>Admin access granted instantly.</p>
+        </div>
+      </div>
     </div>
-    <div id="manuals" class="page-section">
-      <h1>Manuals</h1>
-      <p>List of operator guides, encryption standards, and terminal commands will appear here.</p>
+
+    <div id="commercial" class="page-section">
+      <h1>Commercial</h1>
+      <p>Sketchy sponsored content. Click responsibly 😈</p>
+
+      <div class="cmd-section">
+        <h2 style="color: #ff0;">🔥 Double Your Crypto</h2>
+        <p>Get 2x your bitcoin instantly. 100% legit.</p>
+        <a href="#" onclick="alert('Fake scam: Bitcoin doubler detected!'); return false;">bit-doubler.scam</a>
+      </div>
+
+      <div class="cmd-section">
+        <h2 style="color: #0ff;">💸 Make $10,000 a Day!</h2>
+        <p>No experience needed. Just click!</p>
+        <a href="#" onclick="alert('🔒 SYSTEM BREACH DETECTED: Wallet linked.'); return false;">click-profit.xyz</a>
+      </div>
+
+      <div class="cmd-section">
+        <h2 style="color: #f0f;">👾 Free Fortnite Skins Generator</h2>
+        <p>We swear it works! (No human verification)</p>
+        <a href="#" onclick="alert('Glitching website detected!'); return false;">free-skins.online</a>
+      </div>
+
+      <div class="cmd-section">
+        <h2 style="color: #0f0;">💥 Hack Facebook in 1 Minute</h2>
+        <p>Use AI to crack any account password instantly.</p>
+        <a href="#" onclick="alert('💀 INITIATING HACKER PROTOCOL... ACCESS GRANTED.'); return false;">fbhax.ai</a>
+      </div>
+
+      <div class="cmd-section">
+        <h2 style="color: #f00;">⚠️ Warning: Your PC Is Infected</h2>
+        <p>Scan and clean now. Before it’s too late.</p>
+        <a href="#" onclick="alert('Fake virus scan initiated. Please do not trust this.'); return false;">secure-patch.win</a>
+      </div>
+
+      <div class="cmd-section">
+        <h2 style="color: #0ff;">💻 Government Database Access</h2>
+        <p>Instant admin access to confidential data.</p>
+        <a href="#" onclick="alert('Access denied. Authorization required.'); return false;">gov-access.top</a>
+      </div>
     </div>
+
     <div id="hacks" class="page-section">
       <h1>Hacks</h1>
-      <p>Exploit catalog, toolkits, and vulnerabilities database are under construction.</p>
+      <p>Explore our curated catalog of exploits and toolkits. Use responsibly.</p>
+      <ul>
+        <li><strong>Wi-Fi Sniffer:</strong> Capture packets and analyze nearby networks.</li>
+        <li><strong>Password Cracker:</strong> Brute-force tool for weak passwords.</li>
+        <li><strong>Port Scanner:</strong> Discover open ports on target machines.</li>
+        <li><strong>Packet Injector:</strong> Modify and send custom network packets.</li>
+      </ul>
     </div>
+
     <div id="iosRecovery" class="page-section">
       <h1>iOS Recovery</h1>
       <p>Use <a href="https://checkra.in" target="_blank" style="color:#0f0; text-decoration: underline;">checkra1n</a> to recover or jailbreak your iOS device.</p>
+      <p>Other tools and tutorials coming soon!</p>
     </div>
+
     <div id="cmdCommands" class="page-section">
       <h1>CMD Commands</h1>
       <div class="cmd-section">
@@ -282,15 +306,21 @@ start cmd
 goto loop
         </pre>
         <p>Then save it as a <code>.bat</code> file.</p>
-        <div class="cmd-warning">Warning: this freezes the computer</div>
-        <div class="cmd-note">-To remove this virus, unplug and plug the video cable</div>
+        <div style="background-color:#220000; border:1px solid #f00; padding:10px; margin-bottom:20px; color:#f00; font-weight:bold; font-family: 'Share Tech Mono', monospace;">
+          Warning: this freezes the computer
+        </div>
+        <div style="background-color:#002200; border:1px solid #0f0; padding:10px; margin-bottom:20px; color:#0f0; font-family: 'Share Tech Mono', monospace; font-style: italic;">
+          -To remove this virus, unplug and plug the video cable
+        </div>
 
         <h2>CMD Windows Killer:</h2>
         <p>Open cmd then type:</p>
         <pre>taskkill /f /im "explorer.exe"</pre>
         <p>To undo:</p>
         <pre>start "explorer.exe"</pre>
-        <div class="cmd-warning">Warning: this disables the operating system, which may cause harm to the computer</div>
+        <div style="background-color:#220000; border:1px solid #f00; padding:10px; margin-bottom:20px; color:#f00; font-weight:bold; font-family: 'Share Tech Mono', monospace;">
+          Warning: this disables the operating system, which may cause harm to the computer
+        </div>
       </div>
     </div>
 
@@ -300,10 +330,13 @@ goto loop
         <p>Download pirated games here:</p>
         <ul>
           <li><a href="https://drive.google.com/file/d/1PDAuvx9Vk4gVaHEBdgw2xY17YHvtilOV/view?usp=drivesdk" target="_blank" rel="noopener noreferrer">Pirated Games Archive (Google Drive)</a></li>
+          <li><a href="#" onclick="alert('Download link is temporarily unavailable. Check back later.')">Classic FPS Collection</a></li>
+          <li><a href="#" onclick="alert('Access denied. Please authenticate to proceed.')">Strategy Games Pack</a></li>
         </ul>
         <p><em>Use at your own risk.</em></p>
       </div>
     </div>
+
   </div>
 
   <script>
@@ -335,7 +368,6 @@ goto loop
 
     function checkPassword() {
       const password = passwordInput.value.trim();
-      // Simple password check, change 'darkops' to your desired password
       if (password.toLowerCase() === 'darkops') {
         loginScreen.classList.add('hidden');
       } else {
