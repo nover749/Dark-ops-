@@ -103,6 +103,22 @@
       margin-right: 10px;
       filter: grayscale(100%) brightness(200%);
     }
+    /* Fresh CMD icon */
+    .menu-item.cmd-icon img {
+      content: url("https://img.icons8.com/fluency/48/00ff00/command-line.png");
+      width: 20px;
+      height: 20px;
+      filter: none;
+      margin-right: 10px;
+    }
+    /* Fresh pirated games icon */
+    .menu-item.pirated-icon img {
+      content: url("https://img.icons8.com/ios-filled/50/ff0000/game-controller.png");
+      width: 20px;
+      height: 20px;
+      filter: none;
+      margin-right: 10px;
+    }
     .overlay {
       display: none;
       position: fixed;
@@ -125,69 +141,72 @@
     h1 { font-size: 24px; margin-bottom: 10px; }
     p { color: #bbb; line-height: 1.5; }
 
-    /* Horizontal container on Home for tools */
-    .sponsor-container {
+    /* Tools section scroll and styling */
+    #tools {
+      max-height: 80vh;
+      overflow-y: auto;
+      border: 1px solid #0f0;
+      padding: 10px;
+      border-radius: 6px;
+      background-color: #111;
+      font-family: 'Share Tech Mono', monospace;
+      color: #0f0;
+    }
+    #tools ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    #tools li {
+      padding: 6px 8px;
+      border-bottom: 1px solid #0a0;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    #tools li:hover {
+      background-color: #022002;
+    }
+    #tools a {
+      color: #0f0;
+      text-decoration: none;
+    }
+    #tools a:hover {
+      text-decoration: underline;
+    }
+
+    /* Homepage Windows Tools horizontal scroll container */
+    .windows-tools-scroll {
       display: flex;
       overflow-x: auto;
-      gap: 20px;
-      padding: 20px 0;
-      scroll-behavior: smooth;
+      gap: 15px;
+      padding: 10px 0;
       -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
     }
-    .sponsor-box {
+    .windows-tool-box {
       min-width: 180px;
       background-color: #111;
-      border: 1px solid #333;
-      padding: 15px;
+      border: 1px solid #0f0;
       border-radius: 6px;
+      padding: 15px;
       text-align: center;
       cursor: pointer;
-      transition: background-color 0.3s ease;
       user-select: none;
       flex-shrink: 0;
+      transition: background-color 0.3s ease;
     }
-    .sponsor-box:hover {
-      background-color: #222;
+    .windows-tool-box:hover {
+      background-color: #022002;
     }
-    .sponsor-box h3 {
+    .windows-tool-box h3 {
       margin: 0 0 10px 0;
       color: #0f0;
       font-size: 18px;
     }
-    .sponsor-box p {
+    .windows-tool-box p {
       font-size: 13px;
       color: #aaa;
-    }
-
-    /* Tools section vertical scroll container */
-    .cmd-section {
-      background-color: #111;
-      border: 1px solid #0f0;
-      padding: 20px;
-      margin-top: 20px;
-      border-radius: 4px;
-      font-family: 'Share Tech Mono', monospace;
-      max-height: 400px;
-      overflow-y: auto;
-    }
-    .cmd-section a {
-      color: #0f0;
-      text-decoration: underline;
-      cursor: pointer;
-    }
-    .pirated-games-section {
-      background-color: #111;
-      border: 1px solid #f00;
-      padding: 20px;
-      margin-top: 20px;
-      border-radius: 4px;
-      color: #f00;
-      font-family: 'Share Tech Mono', monospace;
-    }
-    .pirated-games-section a {
-      color: #f00;
-      text-decoration: underline;
-      cursor: pointer;
+      margin: 0;
     }
   </style>
 </head>
@@ -209,8 +228,12 @@
     <div class="menu-item" onclick="showPage('home')">
       <img src="https://img.icons8.com/ios-filled/50/ffffff/home.png" alt="Home">Home
     </div>
-    <div class="menu-item" onclick="showPage('commercial')">
-      <img src="https://img.icons8.com/ios-filled/50/ffffff/commercial.png" alt="Commercial">Commercial
+    <div class="menu-item" onclick="showPage('tools')" id="toolsMenu">
+      <img src="https://img.icons8.com/windows/32/00ff00/toolbox.png" alt="Tools">Tools
+    </div>
+    <div class="menu-item cmd-icon" onclick="showPage('cmdCommands')">
+      <img alt="CMD Commands" />
+      CMD Commands
     </div>
     <div class="menu-item" onclick="showPage('hacks')">
       <img src="https://img.icons8.com/ios-filled/50/ffffff/hacker.png" alt="Hacks">Hacks
@@ -218,11 +241,9 @@
     <div class="menu-item" onclick="showPage('iosRecovery')">
       <img src="https://img.icons8.com/ios-filled/50/ffffff/ios-logo.png" alt="iOS Recovery">iOS Recovery
     </div>
-    <div class="menu-item" onclick="showPage('cmdCommands')">
-      <img src="https://img.icons8.com/ios-filled/50/ffffff/command-prompt.png" alt="CMD Commands">CMD Commands
-    </div>
-    <div class="menu-item" onclick="showPage('piratedGames')">
-      <img src="https://img.icons8.com/ios-filled/50/ffffff/game-controller.png" alt="Pirated Games">Pirated Games
+    <div class="menu-item pirated-icon" onclick="showPage('piratedGames')">
+      <img alt="Pirated Games" />
+      Pirated Games
     </div>
   </div>
 
@@ -236,67 +257,77 @@
       <h1>Home</h1>
       <p>Welcome to the dark ops control interface. Use the menu to navigate between modules.</p>
 
-      <div class="sponsor-container" id="sponsorContainer">
-        <div class="sponsor-box" onclick="window.open('https://winra1n.com/', '_blank')">
-          <h3>Winra1n</h3>
-          <p>Windows jailbreak tool for checkra1n.</p>
+      <!-- Horizontal scroll Windows tools -->
+      <div class="windows-tools-scroll">
+        <div class="windows-tool-box" onclick="window.open('https://www.sysinternals.com/', '_blank')">
+          <h3>Sysinternals Suite</h3>
+          <p>Powerful Windows diagnostic utilities.</p>
         </div>
-        <div class="sponsor-box" onclick="window.open('https://altstore.io/', '_blank')">
-          <h3>AltStore</h3>
-          <p>Install apps on iOS without jailbreaking.</p>
+        <div class="windows-tool-box" onclick="window.open('https://docs.microsoft.com/en-us/sysinternals/downloads/process-explorer', '_blank')">
+          <h3>Process Explorer</h3>
+          <p>Advanced task manager for Windows.</p>
         </div>
-        <div class="sponsor-box" onclick="window.open('https://unc0ver.dev/', '_blank')">
-          <h3>Unc0ver</h3>
-          <p>Popular jailbreak tool for iOS devices.</p>
-        </div>
-        <div class="sponsor-box" onclick="window.open('https://checkra.in/', '_blank')">
-          <h3>checkra1n</h3>
-          <p>Powerful jailbreak for iOS devices.</p>
-        </div>
-        <div class="sponsor-box" onclick="window.open('https://tweakboxapp.com/', '_blank')">
-          <h3>TweakBox</h3>
-          <p>Third-party app installer for iOS.</p>
-        </div>
-        <div class="sponsor-box" onclick="window.open('https://cydia.saurik.com/', '_blank')">
-          <h3>Cydia</h3>
-          <p>Classic jailbreak app store.</p>
+        <div class="windows-tool-box" onclick="window.open('https://nmap.org/', '_blank')">
+          <h3>Nmap</h3>
+          <p>Network scanner and security tool.</p>
         </div>
       </div>
     </div>
 
-    <div id="commercial" class="page-section">
-      <h1>Commercial</h1>
-      <p>Windows and jailbreak tools collection.</p>
-
-      <div class="cmd-section">
-        <h2><a href="https://winra1n.com/" target="_blank" style="color:#0f0; text-decoration:none;">Winra1n</a></h2>
-        <p>Windows jailbreak loader for checkra1n.</p>
-      </div>
-
-      <div class="cmd-section">
-        <h2><a href="https://altstore.io/" target="_blank" style="color:#0f0; text-decoration:none;">AltStore</a></h2>
-        <p>Install apps on iOS devices without jailbreak.</p>
-      </div>
-
-      <div class="cmd-section">
-        <h2><a href="https://unc0ver.dev/" target="_blank" style="color:#0f0; text-decoration:none;">Unc0ver</a></h2>
-        <p>Popular iOS jailbreak tool.</p>
-      </div>
-
-      <div class="cmd-section">
-        <h2><a href="https://checkra.in/" target="_blank" style="color:#0f0; text-decoration:none;">checkra1n</a></h2>
-        <p>Powerful jailbreak for iOS devices.</p>
-      </div>
-
-      <div class="cmd-section">
-        <h2><a href="https://tweakboxapp.com/" target="_blank" style="color:#0f0; text-decoration:none;">TweakBox</a></h2>
-        <p>Third-party app installer for iOS.</p>
-      </div>
-
-      <div class="cmd-section">
-        <h2><a href="https://cydia.saurik.com/" target="_blank" style="color:#0f0; text-decoration:none;">Cydia</a></h2>
-        <p>Classic jailbreak app store.</p>
-      </div>
+    <div id="tools" class="page-section">
+      <h1>Tools</h1>
+      <p>Collection of 50+ Windows and jailbreak tools with official links.</p>
+      <ul>
+        <li><a href="https://checkra.in/" target="_blank" rel="noopener noreferrer">checkra1n - iOS Jailbreak Tool</a></li>
+        <li><a href="https://www.winrar.com/" target="_blank" rel="noopener noreferrer">WinRAR - File Archiver</a></li>
+        <li><a href="https://www.7-zip.org/" target="_blank" rel="noopener noreferrer">7-Zip - File Archiver</a></li>
+        <li><a href="https://notepad-plus-plus.org/" target="_blank" rel="noopener noreferrer">Notepad++ - Text Editor</a></li>
+        <li><a href="https://www.python.org/downloads/windows/" target="_blank" rel="noopener noreferrer">Python for Windows</a></li>
+        <li><a href="https://github.com/nmap/nmap" target="_blank" rel="noopener noreferrer">Nmap - Network Scanner</a></li>
+        <li><a href="https://www.wireshark.org/" target="_blank" rel="noopener noreferrer">Wireshark - Network Protocol Analyzer</a></li>
+        <li><a href="https://www.virtualbox.org/" target="_blank" rel="noopener noreferrer">VirtualBox - Virtualization</a></li>
+        <li><a href="https://www.openssh.com/windows.html" target="_blank" rel="noopener noreferrer">OpenSSH for Windows</a></li>
+        <li><a href="https://www.putty.org/" target="_blank" rel="noopener noreferrer">PuTTY - SSH and Telnet Client</a></li>
+        <li><a href="https://www.sysinternals.com/" target="_blank" rel="noopener noreferrer">Sysinternals Suite</a></li>
+        <li><a href="https://docs.microsoft.com/en-us/sysinternals/downloads/process-explorer" target="_blank" rel="noopener noreferrer">Process Explorer</a></li>
+        <li><a href="https://docs.microsoft.com/en-us/sysinternals/downloads/procmon" target="_blank" rel="noopener noreferrer">Process Monitor</a></li>
+        <li><a href="https://www.nirsoft.net/" target="_blank" rel="noopener noreferrer">NirSoft Utilities</a></li>
+        <li><a href="https://www.burpsuite.com/" target="_blank" rel="noopener noreferrer">Burp Suite - Web Security Testing</a></li>
+        <li><a href="https://github.com/PowerShell/PowerShell" target="_blank" rel="noopener noreferrer">PowerShell Core</a></li>
+        <li><a href="https://www.hashcat.net/hashcat/" target="_blank" rel="noopener noreferrer">Hashcat - Password Cracker</a></li>
+        <li><a href="https://www.cygwin.com/" target="_blank" rel="noopener noreferrer">Cygwin - Linux-like environment</a></li>
+        <li><a href="https://www.virtualbox.org/" target="_blank" rel="noopener noreferrer">VirtualBox</a></li>
+        <li><a href="https://www.fiddler2.com/fiddler2/" target="_blank" rel="noopener noreferrer">Fiddler - HTTP Debugger</a></li>
+        <li><a href="https://www.advanced-ip-scanner.com/" target="_blank" rel="noopener noreferrer">Advanced IP Scanner</a></li>
+        <li><a href="https://nmap.org/" target="_blank" rel="noopener noreferrer">Nmap</a></li>
+        <li><a href="https://www.kali.org/tools/" target="_blank" rel="noopener noreferrer">Kali Linux Tools</a></li>
+        <li><a href="https://www.metasploit.com/" target="_blank" rel="noopener noreferrer">Metasploit Framework</a></li>
+        <li><a href="https://ghidra-sre.org/" target="_blank" rel="noopener noreferrer">Ghidra - Software Reverse Engineering</a></li>
+        <li><a href="https://www.hex-rays.com/products/ida/" target="_blank" rel="noopener noreferrer">IDA Pro</a></li>
+        <li><a href="https://github.com/Tencent/rapidjson" target="_blank" rel="noopener noreferrer">RapidJSON</a></li>
+        <li><a href="https://www.beyondtrust.com/products/remote-support" target="_blank" rel="noopener noreferrer">BeyondTrust Remote Support</a></li>
+        <li><a href="https://www.evernote.com/" target="_blank" rel="noopener noreferrer">Evernote</a></li>
+        <li><a href="https://github.com/danielmiessler/SecLists" target="_blank" rel="noopener noreferrer">SecLists - Security Test Data</a></li>
+        <li><a href="https://www.hashicorp.com/products/vault" target="_blank" rel="noopener noreferrer">HashiCorp Vault</a></li>
+        <li><a href="https://www.cyberchef.io/" target="_blank" rel="noopener noreferrer">CyberChef - Data Analysis</a></li>
+        <li><a href="https://github.com/PowerShell/PowerShell" target="_blank" rel="noopener noreferrer">PowerShell Core</a></li>
+        <li><a href="https://www.openssh.com/" target="_blank" rel="noopener noreferrer">OpenSSH</a></li>
+        <li><a href="https://www.mimikatz.org/" target="_blank" rel="noopener noreferrer">Mimikatz - Credential Dumper</a></li>
+        <li><a href="https://www.snort.org/" target="_blank" rel="noopener noreferrer">Snort - Network IDS</a></li>
+        <li><a href="https://www.torproject.org/" target="_blank" rel="noopener noreferrer">Tor Browser</a></li>
+        <li><a href="https://github.com/curl/curl" target="_blank" rel="noopener noreferrer">curl</a></li>
+        <li><a href="https://www.nessus.org/" target="_blank" rel="noopener noreferrer">Nessus Vulnerability Scanner</a></li>
+        <li><a href="https://www.rdesktop.org/" target="_blank" rel="noopener noreferrer">rdesktop - Remote Desktop Client</a></li>
+        <li><a href="https://www.putty.org/" target="_blank" rel="noopener noreferrer">PuTTY</a></li>
+        <li><a href="https://www.telerik.com/fiddler" target="_blank" rel="noopener noreferrer">Fiddler</a></li>
+        <li><a href="https://wireshark.org/" target="_blank" rel="noopener noreferrer">Wireshark</a></li>
+        <li><a href="https://www.autohotkey.com/" target="_blank" rel="noopener noreferrer">AutoHotkey</a></li>
+        <li><a href="https://www.python.org/" target="_blank" rel="noopener noreferrer">Python</a></li>
+        <li><a href="https://www.virtualbox.org/" target="_blank" rel="noopener noreferrer">VirtualBox</a></li>
+        <li><a href="https://www.sysinternals.com/" target="_blank" rel="noopener noreferrer">Sysinternals Suite</a></li>
+        <li><a href="https://github.com/nmap/nmap" target="_blank" rel="noopener noreferrer">Nmap</a></li>
+        <li><a href="https://www.hashcat.net/hashcat/" target="_blank" rel="noopener noreferrer">Hashcat</a></li>
+      </ul>
     </div>
 
     <div id="hacks" class="page-section">
@@ -318,7 +349,7 @@
 
     <div id="cmdCommands" class="page-section">
       <h1>CMD Commands</h1>
-      <div class="cmd-section">
+      <div class="cmd-section" style="background-color:#111; border: 1px solid #0f0; padding: 20px; border-radius: 6px; font-family: 'Share Tech Mono', monospace; color: #0f0;">
         <h2>Freeze any computer:</h2>
         <p>Open notepad and type:</p>
         <pre>@echo off
@@ -347,12 +378,12 @@ goto loop
 
     <div id="piratedGames" class="page-section">
       <h1>Pirated Games</h1>
-      <div class="pirated-games-section">
+      <div class="pirated-games-section" style="background-color:#111; border:1px solid #f00; padding:20px; border-radius:6px; color:#f00; font-family: 'Share Tech Mono', monospace;">
         <p>Download pirated games here:</p>
         <ul>
-          <li><a href="https://drive.google.com/file/d/1PDAuvx9Vk4gVaHEBdgw2xY17YHvtilOV/view?usp=drivesdk" target="_blank" rel="noopener noreferrer">Pirated Games Archive (Google Drive)</a></li>
-          <li><a href="#" onclick="alert('Download link is temporarily unavailable. Check back later.')">Classic FPS Collection</a></li>
-          <li><a href="#" onclick="alert('Access denied. Please authenticate to proceed.')">Strategy Games Pack</a></li>
+          <li><a href="https://drive.google.com/file/d/1PDAuvx9Vk4gVaHEBdgw2xY17YHvtilOV/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" style="color:#f00; text-decoration: underline;">Pirated Games Archive (Google Drive)</a></li>
+          <li><a href="#" onclick="alert('Download link is temporarily unavailable. Check back later.')" style="color:#f00; text-decoration: underline;">Classic FPS Collection</a></li>
+          <li><a href="#" onclick="alert('Access denied. Please authenticate to proceed.')" style="color:#f00; text-decoration: underline;">Strategy Games Pack</a></li>
         </ul>
         <p><em>Use at your own risk.</em></p>
       </div>
